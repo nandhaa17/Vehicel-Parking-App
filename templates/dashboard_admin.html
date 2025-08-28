@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Admin Dashboard</h2>
+<form method="POST" action="{{ url_for('add_lot') }}">
+    <input class="form-control" name="location" placeholder="Location Name" required><br>
+    <input class="form-control" name="price" placeholder="Price/hr" required><br>
+    <input class="form-control" name="address" placeholder="Address"><br>
+    <input class="form-control" name="pincode" placeholder="Pin Code"><br>
+    <input class="form-control" name="max_spots" placeholder="Max Spots" required><br>
+    <button class="btn btn-primary">Add Lot</button>
+</form>
+<hr>
+<h4>Existing Lots</h4>
+<ul class="list-group">
+{%if lots==[]%}
+<h5 style="font-size: 20;">No lot is created</h5>
+{%endif%}
+{% for lot in lots %}
+   <li class="list-group-item d-flex justify-content-between align-items-center">
+    {{ lot.prime_location_name }} - ₹{{ lot.price_per_hour }}/hr - Spots: {{ lot.max_spots }}
+    <form method="POST" action="{{ url_for('delete_lot', lot_id=lot.id) }}">
+        <button class="btn btn-danger btn-sm">Delete</button>
+    </form>
+</li>
+{% endfor %}
+</ul>
+
+<a href="{{ url_for('spot_status') }}" class="btn btn-primary mt-3">View Spot Status</a>
+
+
+<a href="{{ url_for('view_users') }}" class="btn btn-primary mt-3 view_user">View All Users</a>
+
+
+{% endblock %}

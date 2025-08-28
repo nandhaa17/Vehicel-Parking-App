@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+<h4>Spot Status</h4>
+<ul class="list-group">
+  {% for spot, lot in combine %}
+    <li class="list-group-item">
+      Lot: {{ lot.prime_location_name }} |
+      Spot ID: {{ spot.id }} |
+      Status: {{ spot.status }}
+
+      {% if spot.status == 'Occupied' and res_user_map.get(spot.id) %}
+        {% set r, u = res_user_map[spot.id] %}
+        | User: {{ u.username }} |
+        From: {{ r.parking_timestamp }}
+      {% endif %}
+    </li>
+  {% endfor %}
+</ul>
+{% endblock %}

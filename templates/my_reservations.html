@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>My Reservations</h2>
+<ul class="list-group">
+{%if reservations==[]%}
+<h5>No Reservations yet</h5>
+{%endif%}
+{% for r in reservations %}
+    <li class="list-group-item">
+        Spot: {{ r.spot_id }} | From: {{ r.parking_timestamp }} {% if not r.leaving_timestamp %}
+        <form method="POST" action="{{ url_for('release_spot', reservation_id=r.id) }}" class="d-inline">
+            <button class="btn btn-danger btn-sm">Release</button>
+        </form>
+        {% else %} | To: {{ r.leaving_timestamp }} {% endif %}
+    </li>
+{% endfor %}
+</ul>
+
+<a class="btn btn-info mt-3" href="{{ url_for('dashboard') }}">Back to Dashboard</a>
+
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Hello {{user.username}}!</h2>
+<h2>User Dashboard</h2>
+<ul class="list-group">
+{%if lots==[]%}
+<h5>No lot is available</h5>
+{%endif%}
+{% for lot in lots %}
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+        {{ lot.prime_location_name }} - ₹{{ lot.price_per_hour }}/hr
+        <form method="POST" action="{{ url_for('book_spot', lot_id=lot.id) }}">
+            <button class="btn btn-success btn-sm">Reserve</button>
+        </form>
+    </li>
+{% endfor %}
+</ul>
+<a class="btn btn-info mt-3" href="{{ url_for('my_reservations') }}">My Reservations</a>
+{% endblock %}
