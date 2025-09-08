@@ -1,4 +1,4 @@
-# Vehicle-Parking-App-V1
+# Vehicle-Parking-App
 ## Parking Management System
 This is a web-based Parking Management System built using Flask and SQLite. It supports both Admin and User roles for managing parking lots and reservations.
 
